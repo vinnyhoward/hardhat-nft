@@ -7,6 +7,8 @@ import {
     VERIFICATION_BLOCK_CONFIRMATIONS,
 } from "../helper-hardhat-config";
 import verify from "../utils/verify";
+import chai from "chai";
+
 // types
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
@@ -50,9 +52,10 @@ const deployRandomIpfsNft: DeployFunction = async function (hre: HardhatRuntimeE
     await storeImages(imagesLocation);
     let vrfCoordinatorV2Address, subscriptionId;
 
-    if (developmentChains.includes(chainId.toString())) {
-        console.log("development chain running");
-        const vrfCoordinatorV2Mock = await ethers.getContract("RFCoordinatorV2Mock");
+    if (developmentChains.includes(chainId.toString()) || chainId === 31337) {
+        log("development chain running");
+        const vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock");
+        log("invalid?", vrfCoordinatorV2Mock);
         vrfCoordinatorV2Address = vrfCoordinatorV2Mock.address;
         const transactionResponse = await vrfCoordinatorV2Mock.createSubscription();
         const transactionReceipt = await transactionResponse.wait(1);
@@ -77,6 +80,11 @@ const deployRandomIpfsNft: DeployFunction = async function (hre: HardhatRuntimeE
         networkConfig[chainId].callbackGasLimit!,
         tokenUris,
     ];
+    log(
+        "--------------------------------------------------------------------------------------------------------"
+    );
+
+    log("Deploying RandomIpfsNft....");
 
     const randomIpfsNft = await deploy("RandomIpfsNft", {
         from: deployer,
@@ -90,6 +98,9 @@ const deployRandomIpfsNft: DeployFunction = async function (hre: HardhatRuntimeE
         log("Verifying...");
         await verify(randomIpfsNft.address, args);
     }
+    log(
+        "--------------------------------------------------------------------------------------------------------"
+    );
 };
 
 async function handleTokenUris() {
