@@ -28,10 +28,13 @@ const config: HardhatUserConfig = {
             chainId: 31337,
             // gasPrice: 130000000000,
         },
-        rinkeby: {
+        localhost: {
+            chainId: 31337,
+        },
+        goerli: {
             url: GOERLI_RPC_URL,
             accounts: [PRIVATE_KEY],
-            chainId: 4,
+            chainId: 5,
         },
     },
     solidity: {

@@ -12,7 +12,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 
 error RandomDoggyDog__AlreadyInitialized();
-error RandomDoggyDog__NeedMoreETHSent();
+error RandomDoggyDog__NeedMoreETHSent(uint256 sent, uint256 required);
 error RandomDoggyDog__RangeOutOfBounds();
 error RandomDoggyDog__TransferFailed();
 
@@ -81,7 +81,7 @@ contract RandomIpfsNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
         // Assumes the subscription is funded sufficiently.
         // Will revert if subscription is not set and funded.
         if (msg.value < i_mintFee) {
-            revert RandomDoggyDog__NeedMoreETHSent();
+            revert RandomDoggyDog__NeedMoreETHSent({sent: msg.value, required: i_mintFee});
         }
 
         requestId = i_vrfCoordinator.requestRandomWords(
