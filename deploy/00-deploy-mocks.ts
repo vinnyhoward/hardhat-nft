@@ -1,6 +1,7 @@
 import { ethers } from "hardhat";
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { DECIMALS, INITIAL_PRICE } from"../helper-hardhat-config"
 
 const BASE_FEE = ethers.utils.parseEther("0.25"); // 0.25 is this the premium in LINK?
 const GAS_PRICE_LINK = 1e9; // 100000000 // link per gas, is this the gas lane? // 0.000000001 LINK per gas
@@ -19,6 +20,12 @@ const deployMocks: DeployFunction = async function (hre: HardhatRuntimeEnvironme
             log: true,
             args: [BASE_FEE, GAS_PRICE_LINK],
         });
+
+        await deploy("MockV3Aggregator", {
+            from: deployer,
+            log: true,
+            args: [DECIMALS, INITIAL_PRICE],
+        })
 
         log("Mocks Deployed!");
         log("----------------------------------");
