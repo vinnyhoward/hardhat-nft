@@ -7,6 +7,7 @@ import verify from "../utils/verify";
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import fs from "fs";
+import { ethers } from "hardhat";
 
 const deployDynamicSvgNft: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deployments, getNamedAccounts, network } = hre;
@@ -34,13 +35,14 @@ const deployDynamicSvgNft: DeployFunction = async function (hre: HardhatRuntimeE
         lowSVG, highSVG, 
         networkConfig[chainId].mintFee!
     ];
-    log("args:", args);
+
     const dynamicSvgNft = await deploy("DynamicSvgNft", {
         from: deployer,
         args: args,
         log: true,
         waitConfirmations: waitBlockConfirmations || 1,
     });
+
 
     // Verify the deployment
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
