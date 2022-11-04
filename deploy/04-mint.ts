@@ -4,7 +4,7 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 const mint: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { getNamedAccounts, network, ethers } = hre;
     const { deployer } = await getNamedAccounts();
-    const chainId = network.config.chainId;
+    // const chainId = network.config.chainId;
 
     // Basic NFT
     // const basicNft = await ethers.getContract("BasicNft", deployer);
@@ -13,7 +13,7 @@ const mint: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     // console.log(`Basic NFT index 0 tokenURI: ${await basicNft.tokenURI(0)}`);
 
     // // Random IPFS NFT
-    const randomIpfsNft = await ethers.getContract("RandomIpfsNft", deployer);
+    const randomIpfsNft = await ethers.getContract("RandomIpfsNfts", deployer);
     console.log('address:', randomIpfsNft.address);
     const fee = await randomIpfsNft.getMintFee();
     console.log("mint feet:", fee.toString());

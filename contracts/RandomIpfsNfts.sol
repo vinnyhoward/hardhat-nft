@@ -16,7 +16,7 @@ error RandomDoggyDog__NeedMoreETHSent(uint256 sent, uint256 required);
 error RandomDoggyDog__RangeOutOfBounds();
 error RandomDoggyDog__TransferFailed();
 
-contract RandomIpfsNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
+contract RandomIpfsNfts is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
     // When we mint an NFT, we will trigger a VRF call using Chainlink to get a random number
     // using that number we will get a random NFT
     // NFT rarity Tiers:
@@ -67,8 +67,8 @@ contract RandomIpfsNft is VRFConsumerBaseV2, ERC721URIStorage, Ownable {
         string[3] memory dogTokenUris
     ) VRFConsumerBaseV2(vrfCoordinatorV2) ERC721("Random Doggy Dogs", "RDD") Ownable() {
         i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
-        i_gasLane = gasLane;
         i_subscriptionId = subscriptionId;
+        i_gasLane = gasLane;
         i_mintFee = mintFee;
         i_callbackGasLimit = callbackGasLimit;
         s_dogTokenUris = dogTokenUris;
