@@ -7,7 +7,6 @@ import verify from "../utils/verify";
 import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import fs from "fs";
-import { ethers } from "hardhat";
 
 const deployDynamicSvgNft: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deployments, getNamedAccounts, network } = hre;

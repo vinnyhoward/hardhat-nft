@@ -88,7 +88,7 @@ const deployRandomIpfsNft: DeployFunction = async function (hre: HardhatRuntimeE
 
     log("Deploying RandomIpfsNft....");
 
-    const randomIpfsNft = await deploy("RandomIpfsNfts", {
+    const randomIpfsNft = await deploy("RandomIpfsNft", {
         from: deployer,
         args: args,
         log: true,

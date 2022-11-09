@@ -3,18 +3,18 @@
 import { assert, expect } from "chai";
 import { network, deployments, ethers } from "hardhat";
 import { developmentChains } from "../../helper-hardhat-config";
-import { RandomIpfsNfts, VRFCoordinatorV2Mock } from "../../typechain-types";
+import { RandomIpfsNft, VRFCoordinatorV2Mock } from "../../typechain-types";
 
 !developmentChains.includes(network.name)
     ? describe.skip
     : describe("Random IPFS NFT Unit Tests", function () {
-          let randomIpfsNft: RandomIpfsNfts, deployer, vrfCoordinatorV2Mock: VRFCoordinatorV2Mock;
+          let randomIpfsNft: RandomIpfsNft, deployer, vrfCoordinatorV2Mock: VRFCoordinatorV2Mock;
 
           beforeEach(async () => {
               const accounts = await ethers.getSigners();
               deployer = accounts[0];
               await deployments.fixture(["mocks", "randomnft"]);
-              randomIpfsNft = await ethers.getContract("RandomIpfsNfts");
+              randomIpfsNft = await ethers.getContract("RandomIpfsNft");
               vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock");
           });
 
